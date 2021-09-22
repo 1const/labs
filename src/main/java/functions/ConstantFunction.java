@@ -1,18 +1,18 @@
 package functions;
 
 public class ConstantFunction implements MathFunction{
-    private final double CONST;
+    private final double constant;
 
-    public ConstantFunction(double CONST) {
-        this.CONST = CONST;
+    public ConstantFunction(double constant) {
+        this.constant = constant;
     }
 
-    public double getCONST() {
-        return CONST;
+    public double getConstant() {
+        return constant;
     }
 
     @Override
     public double apply(double x) {
-        return CONST;
+        return constant;
     }
 }
