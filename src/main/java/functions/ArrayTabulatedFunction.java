@@ -2,7 +2,7 @@ package functions;
 
 import java.util.Arrays;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     private double[] xValues;
     private double[] yValues;
     private int count;
@@ -117,14 +117,36 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
                 break;
             } else if (xValues[i] > x) {
                 double[] upXValues = new double[count + 1];
-                System.arraycopy(xValues, 0, upXValues, 0, i);
-                upXValues[i] = x;
-                System.arraycopy(xValues, i + 1, upXValues, i + 1, count);
+                double[] upYValues = new double[count + 1];
+                insertIntoArr(xValues, upXValues, i, x);
+                insertIntoArr(yValues, upYValues, i, y);
+                xValues = upXValues;
+                yValues = upYValues;
+                count++;
                 break;
             }
         }
     }
+    private void insertIntoArr(double[] from, double[] in, int index, double value){
+        System.arraycopy(from, 0, in, 0, index);
+        in[index] = value;
+        System.arraycopy(from, index , in, index + 1, from.length - index);
+    }
 
+    @Override
+    public void remove(int index) {
+        double[] upXValues = new double[count - 1];
+        double[] upYValues = new double[count - 1];
+        removeIntoArr(xValues, upXValues, index);
+        removeIntoArr(yValues, upYValues, index);
+        xValues = upXValues;
+        yValues = upYValues;
+        count++;
+    }
+    private void removeIntoArr(double[] from, double[] in, int index){
+        System.arraycopy(from, 0, in, 0, index - 1);
+        System.arraycopy(from, index , in, index - 1, from.length - index);
+    }
     @Override
     public String toString(){
         return Arrays.toString(xValues) + '\n' +  Arrays.toString(yValues);

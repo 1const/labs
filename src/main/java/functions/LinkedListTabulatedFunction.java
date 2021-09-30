@@ -1,8 +1,7 @@
 package functions;
 
-import java.util.Arrays;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable{
     private int count;
     private Node head;
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues){
@@ -166,6 +165,42 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
             temp = temp.next;
         }
         return temp;            //костыль
+    }
+
+    @Override
+    public void insert(double x, double y) {
+        Node temp = head;
+        for (int i = 1; i < count; i++) {
+            if (temp.x == x) {
+                temp.y = y;
+                break;
+            } else if (temp.x > x) {
+                Node newNode = new Node(x,y);
+                newNode.next = temp;
+                newNode.prev = temp.prev;
+                temp.prev.next = newNode;
+                temp.prev = newNode;
+                count++;
+                break;
+            }
+            temp = temp.next;
+        }
+    }
+
+    @Override
+    public void remove(int index) {
+        Node temp = head;
+        for (int i = 0; i < count; i++) {
+            if (i == index){
+                temp.prev.next = temp.next;
+                temp.next.prev = temp.prev;
+                temp.next = null;
+                temp.prev = null;
+                count--;
+                break;
+            }
+            temp = temp.next;
+        }
     }
 
     @Override

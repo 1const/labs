@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class LinkedListTabulatedFunctionTest {
     @Test
-   public void test(){
+   public void testDefaultFunctions(){
         MathFunction function = new SqrFunction();
         LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(function, 1., 9., 5);
         System.out.println(list.toString());
@@ -19,7 +19,7 @@ public class LinkedListTabulatedFunctionTest {
         System.out.println(list.indexOfX(3) + " -index of existent x");
     }
     @Test
-    public void test2() {
+    public void testApply() {
         MathFunction function = new SqrFunction();
         LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(function, 1., 9., 5);
         System.out.println(list.toString());
@@ -30,5 +30,15 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(2.0, list.apply(4), delta );            // не табличное значение внутри границы
         assertEquals(2.23, list.apply(5), delta );            // табличное значение внутри границы
         //assertEquals(2.23, list.apply(-4), 0.4 );                         //sqrtX >= 0
+    }
+    @Test
+    public void testInsert(){
+        MathFunction function = new SqrFunction();
+        LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(function, 1., 9., 5);
+        System.out.println(list.toString());
+        list.insert(2.0, 2.0);
+        System.out.println(list.toString());
+        list.remove(1);
+        System.out.println(list.toString());
     }
 }
