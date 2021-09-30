@@ -11,11 +11,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
         }
     }
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
-        this.count = count;
         double step = (xTo - xFrom) / (count - 1);
         double tempX = xFrom;
         for (int i = 0; i < count; i++) {
-            addNode(tempX, source.apply(tempX));                                            // отсутсвтует добавление эл-в
+            addNode(tempX, source.apply(tempX));
             tempX += step;
         }
     }
@@ -94,6 +93,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
     public double rightBound() {
         return head.prev.x;
     }
+
     @Override
     protected int floorIndexOfX(double x) {
         Node temp = head;
@@ -127,7 +127,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
         if(count == 1){
             return head.y;
         }
-        return interpolate(x, count - 1);
+        return interpolate(x, count - 2);
     }
 
     @Override
@@ -143,7 +143,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
     public double apply(double x) {
         if (x < leftBound()) {
             return extrapolateLeft(x);
-        } else if (x < rightBound()) {
+        } else if (x > rightBound()) {
             return extrapolateRight(x);
         }
         return indexOfX(x) == -1 ? interpolate(x,
@@ -166,5 +166,17 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
             temp = temp.next;
         }
         return temp;            //костыль
+    }
+
+    @Override
+    public String toString() {
+        Node temp = head;
+        String str ="0 node:" + head.toString();
+        for (int i = 1; i < count; i++) {
+            temp = temp.next;
+            str += "\n" + i + " node:" + temp.toString();
+        }
+        str +="\n" + "----------------------------";
+        return str;
     }
 }

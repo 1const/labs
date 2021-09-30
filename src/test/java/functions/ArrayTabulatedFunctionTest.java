@@ -14,13 +14,20 @@ public class ArrayTabulatedFunctionTest {
         System.out.println(arr.floorIndexOfX(4) + " - floorIndex");
         arr.setY(1, 4);
         System.out.println(arr.getY(1) + "- new Y");
-
+        System.out.println(arr.leftBound() + " - leftBound");
+        System.out.println(arr.rightBound() + " - rightBound");
+        System.out.println(arr.indexOfX(1) + " indexOf 1");
     }
     @Test
     public void test2(){
         MathFunction function = new SqrFunction();
         ArrayTabulatedFunction arr = new ArrayTabulatedFunction(function, 1., 9., 5);
-        System.out.println(arr.extrapolateLeft(2) + "- extrapolateLeft");
-        System.out.println(arr.extrapolateRight(2) + "- extrapolateRight");
+        System.out.println(arr.toString());
+        double delta = 0.1;                                             // скорее всего большая погрешность из-за маленького количества count
+        assertEquals(1.0, arr.apply(1), delta );             //левая граница
+        assertEquals(3.0, arr.apply(9), delta );             //правая граница
+        assertEquals(3.16, arr.apply(10), delta );           // выход за границы
+        assertEquals(2.0, arr.apply(4), delta );             // не табличное значение внутри границы
+        assertEquals(2.23, arr.apply(5), delta );            // табличное значение внутри границы
     }
 }
