@@ -40,4 +40,13 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
         return indexOfX(x) == -1 ? interpolate(x,
                 floorIndexOfX(x)) : getY(indexOfX(x));
     }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder(this.getClass().getSimpleName() + " size = "+ getCount() + "\n");
+        for (Point i : this) {
+            str.append("[").append(i.x).append("; ").append(i.y).append("]").append("\n");
+        }
+        return str.toString();
+    }
 }

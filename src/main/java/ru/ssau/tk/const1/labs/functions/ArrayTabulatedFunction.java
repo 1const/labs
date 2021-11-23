@@ -2,16 +2,18 @@ package ru.ssau.tk.const1.labs.functions;
 
 import ru.ssau.tk.const1.labs.exceptions.InterpolationException;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
+    private static final long serialVersionUID = 476017482196043048L;
     private double[] xValues;
     private double[] yValues;
     private int count;
 
-    public ArrayTabulatedFunction(double[] xValues, double[] yValues){
+    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         checkLengthIsTheSame(xValues, yValues);
         if (xValues.length < 2) {
             throw new IllegalArgumentException("xValues.length < 2");
@@ -66,7 +68,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     protected double interpolate(double x, int floorIndex) {
-        if(x < xValues[floorIndex] || x > xValues[floorIndex + 1]){
+        if (x < xValues[floorIndex] || x > xValues[floorIndex + 1]) {
             throw new InterpolationException();
         }
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1],
@@ -80,7 +82,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public double getX(int index) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         return xValues[index];
@@ -88,7 +90,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public double getY(int index) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         return yValues[index];
@@ -96,14 +98,14 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public void setY(int index, double value) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         yValues[index] = value;
     }
 
     @Override
-    public int indexOfX(double x){
+    public int indexOfX(double x) {
         int returned = Arrays.binarySearch(xValues, x);
         return returned < 0 ? -1 : returned;
     }
@@ -155,7 +157,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public void remove(int index) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         double[] upXValues = new double[count - 1];
@@ -192,10 +194,5 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
                 throw new NoSuchElementException();
             }
         };
-    }
-
-    @Override
-    public String toString() {
-        return Arrays.toString(xValues) + '\n' + Arrays.toString(yValues);
     }
 }

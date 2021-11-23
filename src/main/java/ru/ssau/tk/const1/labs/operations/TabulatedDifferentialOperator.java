@@ -1,6 +1,5 @@
 package ru.ssau.tk.const1.labs.operations;
 
-import ru.ssau.tk.const1.labs.functions.MathFunction;
 import ru.ssau.tk.const1.labs.functions.Point;
 import ru.ssau.tk.const1.labs.functions.TabulatedFunction;
 import ru.ssau.tk.const1.labs.functions.factory.ArrayTabulatedFunctionFactory;
@@ -9,11 +8,11 @@ import ru.ssau.tk.const1.labs.functions.factory.TabulatedFunctionFactory;
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
     private TabulatedFunctionFactory factory;
 
-    TabulatedDifferentialOperator(TabulatedFunctionFactory factory) {
+    public TabulatedDifferentialOperator(TabulatedFunctionFactory factory) {
         this.factory = factory;
     }
 
-    TabulatedDifferentialOperator() {
+    public TabulatedDifferentialOperator() {
         this.factory = new ArrayTabulatedFunctionFactory();
     }
 

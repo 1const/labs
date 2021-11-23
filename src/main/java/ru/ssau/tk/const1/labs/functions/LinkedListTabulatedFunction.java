@@ -4,10 +4,12 @@ package ru.ssau.tk.const1.labs.functions;
 import org.jetbrains.annotations.NotNull;
 import ru.ssau.tk.const1.labs.exceptions.InterpolationException;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
+    private static final long serialVersionUID = 2086469304634636410L;
     private int count;
     private Node head;
 
@@ -275,10 +277,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     @Override
     public Iterator<Point> iterator() {
         return new Iterator<>() {
+            private int i = 0;
             Node node = head;
             @Override
             public boolean hasNext() {
-                return node != null;
+                return i < count;
             }
 
             @Override
@@ -286,22 +289,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 if(hasNext()){
                     Point point = new Point(node.x,node.y);
                     node = node.next;
+                    i++;
                     return point;
                 }
                 throw new NoSuchElementException();
             }
         };
-    }
-
-    @Override
-    public String toString() {
-        Node temp = head;
-        StringBuilder str = new StringBuilder("0 node:" + head.toString());
-        for (int i = 1; i < count; i++) {
-            temp = temp.next;
-            str.append("\n").append(i).append(" node:").append(temp.toString());
-        }
-        str.append("\n" + "----------------------------");
-        return str.toString();
     }
 }

@@ -26,7 +26,7 @@ public class TabulatedFunctionOperationService {
     }
 
     public Point[] asPoints(TabulatedFunction tabulatedFunction) {
-        Point[] points = new Point[tabulatedFunction.getCount() - 1];
+        Point[] points = new Point[tabulatedFunction.getCount()];
         int j = 0;
         for (Point i : tabulatedFunction) {
             points[j] = i;
