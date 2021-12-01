@@ -59,12 +59,14 @@ public class TabulatedFunctionOperationService {
         }
         return factory.create(xValues, yValues);
     }
-
+    public TabulatedFunction addition(TabulatedFunction a, TabulatedFunction b) {
+        return doOperation(a, b, Double::sum);
+    }
     public TabulatedFunction subtraction(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, (u, v) -> u - v);
     }
 
-    public TabulatedFunction addition(TabulatedFunction a, TabulatedFunction b) {
+    public TabulatedFunction multiplication(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, (u, v) -> u * v);
     }
 
