@@ -57,13 +57,43 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testInsert() {
-        MathFunction function = new SqrFunction();
-        ArrayTabulatedFunction arr = new ArrayTabulatedFunction(function, 1., 9., 5);
+        double[] xValues = {1, 2, 3, 4, 5};
+        double[] yValues = {1, 2, 3, 4, 5};
+        ArrayTabulatedFunction arr = new ArrayTabulatedFunction(xValues, yValues);
+        System.out.println("До изменений");
         System.out.println(arr);
-        arr.insert(2, 2);
+
+        arr.insert(2.5, 2.5);
+        assertEquals(6, arr.getCount(), 0);
+        System.out.println("после добавления (2.5, 2.5)");
         System.out.println(arr);
+
         arr.remove(2);
+        assertEquals(5, arr.getCount(), 0);
+        System.out.println("после удаления точки (2.5, 2.5)");
         System.out.println(arr);
+
+        arr.insert(1, 2);
+        assertEquals(5, arr.getCount(), 0);
+        System.out.println("после добавления (1, 2)");
+        System.out.println(arr);
+
+        arr.remove(0);
+        assertEquals(4, arr.getCount(), 0);
+        System.out.println("после удаления точки в начале");
+        System.out.println(arr);
+
+        arr.insert(5, 6);
+        assertEquals(4, arr.getCount(), 0);
+        System.out.println("после добавления (5, 6)");
+        System.out.println(arr);
+
+        arr.remove(3);
+        assertEquals(3, arr.getCount(), 0);
+        System.out.println("после удаления точки в конце");
+        System.out.println(arr);
+
+
     }
 
     @Test

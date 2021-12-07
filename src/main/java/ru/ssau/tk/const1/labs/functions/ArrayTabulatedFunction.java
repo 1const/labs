@@ -162,16 +162,35 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         }
         double[] upXValues = new double[count - 1];
         double[] upYValues = new double[count - 1];
+        if (index == count - 1) {
+            xValues = Arrays.copyOf(xValues, count - 1);
+            yValues = Arrays.copyOf(yValues, count - 1);
+            count--;
+            return;
+        } else if (index == 0) {
+            xValues = Arrays.copyOfRange(xValues, 1, count);
+            yValues = Arrays.copyOfRange(yValues, 1, count);
+            count--;
+            return;
+        }
         removeIntoArr(xValues, upXValues, index);
         removeIntoArr(yValues, upYValues, index);
         xValues = upXValues;
         yValues = upYValues;
-        count++;
+        count--;
     }
 
     private void removeIntoArr(double[] from, double[] in, int index) {
-        System.arraycopy(from, 0, in, 0, index - 1);
-        System.arraycopy(from, index, in, index - 1, from.length - index);
+        double[] arrOf = Arrays.copyOfRange(from, 0, index);
+        double[] arrTo = Arrays.copyOfRange(from, index + 1, count);
+        for (int i = 0; i < arrOf.length; i++) {
+            in[i] = arrOf[i];
+        }
+        int j = 0;
+        for (int i = index; i < index + arrTo.length; i++) {
+            in[i] = arrTo[j];
+            j++;
+        }
     }
 
     @Override

@@ -1,9 +1,7 @@
 package ru.ssau.tk.const1.labs;
 
 import org.junit.Test;
-import ru.ssau.tk.const1.labs.functions.CompositeFunction;
-import ru.ssau.tk.const1.labs.functions.MathFunction;
-import ru.ssau.tk.const1.labs.functions.SqrFunction;
+import ru.ssau.tk.const1.labs.functions.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,11 +9,17 @@ public class MathFunctionTest {
 
     @Test
     public void testAndThen() {
-        SqrFunction sqr_func1 = new SqrFunction();
-        SqrFunction sqr_func2 = new SqrFunction();
-        SqrFunction sqr_func3 = new SqrFunction();
-        MathFunction composite1 = sqr_func3.andThen(sqr_func2).andThen(sqr_func1);
-        CompositeFunction composite2 = new CompositeFunction(sqr_func1, sqr_func3.andThen(sqr_func2));
-        assertEquals(5.0, sqr_func1.andThen(sqr_func2).apply(625), 0);
+        double[] arrOfX1 = {1, 2, 3};
+        double[] arrOfY1 = {-3, -6, -9};
+        double[] arrOfX2 = {1, 10, 20};
+        double[] arrOfY2 = {0.5, 5, 10};
+        MathFunction minusThreeFunc = new ArrayTabulatedFunction(arrOfX1, arrOfY1);
+        MathFunction halfFunc = new LinkedListTabulatedFunction(arrOfX2, arrOfY2);
+        MathFunction sqrFunc = new SqrFunction();
+        double delta = 0.001;
+        MathFunction composite1 = sqrFunc.andThen(halfFunc);
+        assertEquals(1.118 , composite1.apply(2.5), delta);
+        MathFunction composite2 = minusThreeFunc.andThen(composite1);
+        assertEquals(-3.3541 , composite2.apply(2.5), delta);
     }
 }

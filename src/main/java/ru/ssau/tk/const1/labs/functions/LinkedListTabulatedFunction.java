@@ -260,8 +260,12 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         Node temp = head;
+
         for (int i = 0; i < count; i++) {
             if (i == index) {
+                if(index ==0) {
+                    head = temp.next;
+                }
                 temp.prev.next = temp.next;
                 temp.next.prev = temp.prev;
                 temp.next = null;
