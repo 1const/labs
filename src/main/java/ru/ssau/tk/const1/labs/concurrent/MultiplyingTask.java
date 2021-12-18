@@ -2,7 +2,7 @@ package ru.ssau.tk.const1.labs.concurrent;
 
 import ru.ssau.tk.const1.labs.functions.TabulatedFunction;
 
-public class MultiplyingTask implements Runnable{
+public class MultiplyingTask implements Runnable {
     private TabulatedFunction function;
 
     public MultiplyingTask(TabulatedFunction function) {

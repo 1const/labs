@@ -5,11 +5,10 @@ import org.junit.Test;
 import ru.ssau.tk.const1.labs.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.const1.labs.exceptions.DifferentLengthOfArraysException;
 import ru.ssau.tk.const1.labs.functions.*;
-import ru.ssau.tk.const1.labs.functions.factory.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.const1.labs.functions.factory.LinkedListTabulatedFunctionFactory;
-import ru.ssau.tk.const1.labs.functions.factory.TabulatedFunctionFactory;
+
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -121,26 +120,26 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testIterator() {
+        double delta = 0.01;
         double[] xValues = {1, 2, 3, 4, 5};
         double[] yValues = {1, 2, 3, 4, 5};
         ArrayTabulatedFunction arr2 = new ArrayTabulatedFunction(xValues, yValues);
+        int i = 0;
         for (Point p : arr2) {
-            System.out.println("foreach:" + p.x + ", " + p.y);
+            assertEquals(xValues[i], p.x, delta);
+            assertEquals(yValues[i], p.y, delta);
+            i++;
         }
+        assertEquals(arr2.getCount(), i);
+        i = 0;
         Iterator<Point> iterator = arr2.iterator();
         while (iterator.hasNext()) {
             Point p = iterator.next();
-            System.out.println("while:" + p.x + ", " + p.y);
+            assertEquals(xValues[i], p.x, delta);
+            assertEquals(yValues[i], p.y, delta);
+            i++;
         }
-    }
-
-    @Test
-    public void testFactory() {
-        TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
-        TabulatedFunctionFactory listFactory = new LinkedListTabulatedFunctionFactory();
-        double[] xValues = {1, 2, 3, 4, 5};
-        double[] yValues = {1, 2, 3, 4, 5};
-        TabulatedFunction array = arrayFactory.create(xValues, yValues);
-        TabulatedFunction list = listFactory.create(xValues, yValues);
+        assertEquals(arr2.getCount(), i);
+        Assert.assertThrows(NoSuchElementException.class, iterator::next);
     }
 }

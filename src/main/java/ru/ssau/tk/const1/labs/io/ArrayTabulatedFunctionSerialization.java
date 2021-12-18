@@ -7,7 +7,7 @@ import java.io.*;
 
 public class ArrayTabulatedFunctionSerialization {
     public static void main(String[] args) {
-        try(BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("/serialized array functions.bin"))){
+        try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("/serialized array functions.bin"))) {
             double[] xValues = {1, 2, 3, 4, 5};
             double[] yValues = {1, 4, 9, 16, 25};
             ArrayTabulatedFunction arrayFunction = new ArrayTabulatedFunction(xValues, yValues);
@@ -20,12 +20,11 @@ public class ArrayTabulatedFunctionSerialization {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try(BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream("/serialized array functions.bin"))) {
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream("/serialized array functions.bin"))) {
             System.out.println(FunctionsIO.deserialize(bufferedInputStream).toString());
             System.out.println(FunctionsIO.deserialize(bufferedInputStream).toString());
             System.out.println(FunctionsIO.deserialize(bufferedInputStream).toString());
-        }
-        catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

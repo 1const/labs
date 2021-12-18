@@ -15,7 +15,7 @@ public class ReadWriteTask implements Runnable {
             double x = function.getX(i);
             double y;
             synchronized (this) {
-                 y = function.getY(i);
+                y = function.getY(i);
                 System.out.printf("%s, before write: i = %d, x = %f, y = %f \n", Thread.currentThread().getName(), i, x, y);
                 function.setY(i, y + 1);
             }

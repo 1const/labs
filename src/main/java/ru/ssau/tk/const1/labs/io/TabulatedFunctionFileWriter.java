@@ -12,7 +12,7 @@ public class TabulatedFunctionFileWriter {
         ArrayTabulatedFunction arrayFunction = new ArrayTabulatedFunction(xValues, yValues);
         LinkedListTabulatedFunction linkedFunction = new LinkedListTabulatedFunction(xValues, yValues);
         try (BufferedWriter bufferedWriter = new BufferedWriter(
-                             new FileWriter("output/array function.txt"))) {
+                new FileWriter("output/array function.txt"))) {
             FunctionsIO.writeTabulatedFunction(bufferedWriter, arrayFunction);
         } catch (IOException e) {
             e.printStackTrace();

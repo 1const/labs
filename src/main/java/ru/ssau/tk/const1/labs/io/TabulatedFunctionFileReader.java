@@ -11,7 +11,7 @@ import java.io.IOException;
 public class TabulatedFunctionFileReader {
     public static void main(String[] args) {
         try (BufferedReader bufferedReaderToArray = new BufferedReader(
-                    new FileReader("input/function.txt")); BufferedReader bufferedReaderToLinkedList = new BufferedReader(
+                new FileReader("input/function.txt")); BufferedReader bufferedReaderToLinkedList = new BufferedReader(
                 new FileReader("input/function.txt"))) {
             TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
             TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();

@@ -5,14 +5,17 @@ import ru.ssau.tk.const1.labs.functions.MathFunction;
 import ru.ssau.tk.const1.labs.functions.SqrFunction;
 import ru.ssau.tk.const1.labs.operations.LeftSteppingDifferentialOperator;
 
+import static org.junit.Assert.assertEquals;
+
 public class LeftSteppingDifferentialOperatorTest {
     @Test
-    public void defaultMethodsTest(){
+    public void defaultMethodsTest() {
+        double delta = 0.001;
         LeftSteppingDifferentialOperator operator = new LeftSteppingDifferentialOperator(3.0);
-        MathFunction function =  new SqrFunction();
-        System.out.println(operator.derive(function).apply(6));
-        System.out.println(operator.getStep());
+        MathFunction function = new SqrFunction();
+        assertEquals(0.2391, operator.derive(function).apply(6), delta);
+        assertEquals(3, operator.getStep(), delta);
         operator.setStep(2);
-        System.out.println(operator.derive(function).apply(6));
+        assertEquals(0.2247, operator.derive(function).apply(6), delta);
     }
 }

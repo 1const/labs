@@ -84,7 +84,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     private Node getNode(int index) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         Node temp = head;
@@ -101,7 +101,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public double getX(int index) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         return getNode(index).x;
@@ -109,7 +109,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public double getY(int index) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         return getNode(index).y;
@@ -117,7 +117,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public void setY(int index, double value) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         getNode(index).y = value;
@@ -192,7 +192,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     protected double interpolate(double x, int floorIndex) {
-        if(x < getNode(floorIndex).x || x > getNode(floorIndex + 1).x){
+        if (x < getNode(floorIndex).x || x > getNode(floorIndex + 1).x) {
             throw new InterpolationException();
         }
         return interpolate(x, getNode(floorIndex).x, getNode(floorIndex + 1).x,
@@ -256,14 +256,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public void remove(int index) {
-        if(index < 0 || index > count - 1){
+        if (index < 0 || index > count - 1) {
             throw new IllegalArgumentException("IndexOutOfBounds");
         }
         Node temp = head;
 
         for (int i = 0; i < count; i++) {
             if (i == index) {
-                if(index ==0) {
+                if (index == 0) {
                     head = temp.next;
                 }
                 temp.prev.next = temp.next;
@@ -283,6 +283,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return new Iterator<>() {
             private int i = 0;
             Node node = head;
+
             @Override
             public boolean hasNext() {
                 return i < count;
@@ -290,8 +291,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
             @Override
             public Point next() {
-                if(hasNext()){
-                    Point point = new Point(node.x,node.y);
+                if (hasNext()) {
+                    Point point = new Point(node.x, node.y);
                     node = node.next;
                     i++;
                     return point;

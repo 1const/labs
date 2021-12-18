@@ -17,18 +17,20 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
         return leftY + ((rightY - leftY) * (x - leftX)) / (rightX - leftX);
     }
 
-    static void checkLengthIsTheSame(double[] xValues, double[] yValues){
-        if(xValues.length != yValues.length){
+    protected static void checkLengthIsTheSame(double[] xValues, double[] yValues) {
+        if (xValues.length != yValues.length) {
             throw new DifferentLengthOfArraysException();
         }
     }
-    static void checkSorted(double[] xValues){
+
+    protected static void checkSorted(double[] xValues) {
         for (int i = 0; i < xValues.length - 1; i++) {
-            if(xValues[i] > xValues[i + 1]){
+            if (xValues[i] >= xValues[i + 1]) {
                 throw new ArrayIsNotSortedException();
             }
         }
     }
+
     @Override
     public double apply(double x) {
         if (x < leftBound()) {
@@ -43,7 +45,7 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder(this.getClass().getSimpleName() + " size = "+ getCount() + "\n");
+        StringBuilder str = new StringBuilder(this.getClass().getSimpleName() + " size = " + getCount() + "\n");
         for (Point i : this) {
             str.append("[").append(i.x).append("; ").append(i.y).append("]").append("\n");
         }

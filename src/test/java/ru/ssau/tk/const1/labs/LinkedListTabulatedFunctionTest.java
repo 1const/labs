@@ -7,6 +7,7 @@ import ru.ssau.tk.const1.labs.exceptions.DifferentLengthOfArraysException;
 import ru.ssau.tk.const1.labs.functions.*;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -127,16 +128,26 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testIterator() {
+        double delta = 0.01;
         double[] xValues = {1, 2, 3, 4, 5};
         double[] yValues = {1, 2, 3, 4, 5};
         LinkedListTabulatedFunction arr2 = new LinkedListTabulatedFunction(xValues, yValues);
+        int i = 0;
         for (Point p : arr2) {
-            System.out.println("foreach:" + p.x + ", " + p.y);
+            assertEquals(xValues[i], p.x, delta);
+            assertEquals(yValues[i], p.y, delta);
+            i++;
         }
+        assertEquals(arr2.getCount(), i);
+        i = 0;
         Iterator<Point> iterator = arr2.iterator();
         while (iterator.hasNext()) {
             Point p = iterator.next();
-            System.out.println("while:" + p.x + ", " + p.y);
+            assertEquals(xValues[i], p.x, delta);
+            assertEquals(yValues[i], p.y, delta);
+            i++;
         }
+        assertEquals(arr2.getCount(), i);
+        Assert.assertThrows(NoSuchElementException.class, iterator::next);
     }
 }

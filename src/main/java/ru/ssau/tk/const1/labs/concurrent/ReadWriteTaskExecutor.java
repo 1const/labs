@@ -15,7 +15,7 @@ public class ReadWriteTaskExecutor {
         for (int i = 0; i < 20; i++) {
             listOfThread.add(new Thread(readWriteTask, "thread-" + i));
         }
-        for(Thread t : listOfThread){
+        for (Thread t : listOfThread) {
             t.start();
         }
         try {

@@ -17,8 +17,7 @@ public class TabulatedFunctionFileInputStream {
             LinkedListTabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
             TabulatedDifferentialOperator tabulatedDifferentialOperator = new TabulatedDifferentialOperator(linkedListFactory);
             System.out.println(tabulatedDifferentialOperator.derive(FunctionsIO.readTabulatedFunction(bufferedReader, linkedListFactory)).toString());
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
