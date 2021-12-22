@@ -60,7 +60,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             throw new IllegalArgumentException("count < 2");
         }
         double step = (xTo - xFrom) / (count - 1);
-        System.out.println(step);
         double tempX = xFrom;
         for (int i = 0; i < count; i++) {
             addNode(tempX, source.apply(tempX));
@@ -127,7 +126,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     public int indexOfX(double x) {
         Node temp = head;
         for (int i = 0; i < count; i++) {
-            if (head.x == x) {
+            if (temp.x == x) {
                 return i;
             }
             temp = temp.next;
@@ -139,7 +138,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     public int indexOfY(double y) {
         Node temp = head;
         for (int i = 0; i < count; i++) {
-            if (head.y == y) {
+            if (temp.y == y) {
                 return i;
             }
             temp = temp.next;
