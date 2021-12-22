@@ -7,12 +7,12 @@ import ru.ssau.tk.const1.labs.operations.TabulatedFunctionOperationService;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class SynchronizedTabulatedFunction implements TabulatedFunction {
     private final TabulatedFunction tabulatedFunction;
     private final Object mutex;
+
     public SynchronizedTabulatedFunction(TabulatedFunction tabulatedFunction) {
         this.tabulatedFunction = tabulatedFunction;
         this.mutex = this;
@@ -23,10 +23,20 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
         this.mutex = mutex;
     }
 
+    public interface Operation<T> {
+        T apply(SynchronizedTabulatedFunction func);
+    }
+
     @Override
     public int getCount() {
         synchronized (mutex) {
             return tabulatedFunction.getCount();
+        }
+    }
+
+    public <T> T doSynchronously(Operation<? extends T> operation) {
+        synchronized (mutex) {
+            return operation.apply(this);
         }
     }
 

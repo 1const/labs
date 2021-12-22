@@ -1,5 +1,6 @@
 package ru.ssau.tk.const1.labs.operations;
 
+import ru.ssau.tk.const1.labs.concurrent.SynchronizedTabulatedFunction;
 import ru.ssau.tk.const1.labs.functions.Point;
 import ru.ssau.tk.const1.labs.functions.TabulatedFunction;
 import ru.ssau.tk.const1.labs.functions.factory.ArrayTabulatedFunctionFactory;
@@ -37,5 +38,12 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
         xValues[trueLength] = points[trueLength].x;
         yValues[trueLength] = yValues[trueLength - 1];
         return factory.create(xValues, yValues);
+    }
+    public TabulatedFunction deriveSynchronously(TabulatedFunction function){
+        if (function instanceof SynchronizedTabulatedFunction) {
+            return ((SynchronizedTabulatedFunction) function).doSynchronously(this::derive);
+        }
+        SynchronizedTabulatedFunction synchFunction = new SynchronizedTabulatedFunction(function);
+        return synchFunction.doSynchronously(this::derive);
     }
 }
