@@ -14,7 +14,7 @@ public class AddingMultiplyingTaskExecutor {
         thread2.start();
         thread3.start();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
