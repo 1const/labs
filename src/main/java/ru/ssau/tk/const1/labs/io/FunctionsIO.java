@@ -48,7 +48,7 @@ public final class FunctionsIO {
         } catch (ParseException e) {
             throw new IOException(e);
         }
-        return factory.create(xValues, yValues);
+        return factory.createFromArray(xValues, yValues);
     }
 
     public static TabulatedFunction readTabulatedFunction(BufferedInputStream inputStream, TabulatedFunctionFactory factory) throws IOException {
@@ -60,7 +60,7 @@ public final class FunctionsIO {
             xValues[i] = dataInputStream.readDouble();
             yValues[i] = dataInputStream.readDouble();
         }
-        return factory.create(xValues, yValues);
+        return factory.createFromArray(xValues, yValues);
     }
 
     public static void serialize(BufferedOutputStream stream, TabulatedFunction function) throws IOException {

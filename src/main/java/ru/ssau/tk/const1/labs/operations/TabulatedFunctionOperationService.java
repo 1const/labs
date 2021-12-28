@@ -57,7 +57,7 @@ public class TabulatedFunctionOperationService {
         for (int i = 0; i < xValues.length; i++) {
             yValues[i] = operation.apply(aPoints[i].y, bPoints[i].y);
         }
-        return factory.create(xValues, yValues);
+        return factory.createFromArray(xValues, yValues);
     }
 
     public TabulatedFunction addition(TabulatedFunction a, TabulatedFunction b) {

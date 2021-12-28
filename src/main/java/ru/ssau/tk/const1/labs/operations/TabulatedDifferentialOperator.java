@@ -37,9 +37,10 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
         }
         xValues[trueLength] = points[trueLength].x;
         yValues[trueLength] = yValues[trueLength - 1];
-        return factory.create(xValues, yValues);
+        return factory.createFromArray(xValues, yValues);
     }
-    public TabulatedFunction deriveSynchronously(TabulatedFunction function){
+
+    public TabulatedFunction deriveSynchronously(TabulatedFunction function) {
         if (function instanceof SynchronizedTabulatedFunction) {
             return ((SynchronizedTabulatedFunction) function).doSynchronously(this::derive);
         }
