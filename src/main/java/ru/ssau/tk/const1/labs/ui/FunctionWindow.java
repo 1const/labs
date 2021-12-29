@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FunctionWindow extends JFrame {
+public class FunctionWindow extends JDialog {
 
     private final JLabel firstLabel = new JLabel("Введите количество точек разбиения:");
     private final JTextField firstTextField = new JTextField("");
@@ -27,6 +27,7 @@ public class FunctionWindow extends JFrame {
 
     public FunctionWindow(TabulatedFunctionFactory factory) {
         this.factory = factory;
+        setModal(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(400, 200);
@@ -37,6 +38,7 @@ public class FunctionWindow extends JFrame {
     }
 
     public TabulatedFunction getFunction() {
+        System.out.println(function);
         return function;
     }
 
@@ -57,7 +59,6 @@ public class FunctionWindow extends JFrame {
         int count = Integer.parseInt(firstTextField.getText());
 
         function = factory.createFromFunction(selectedFunction, from, to, count);
-        System.out.println(function);
     }
 
     private void addButtonListeners() {

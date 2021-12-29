@@ -4,20 +4,21 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class MyTableModel extends AbstractTableModel {
-    private static final int X_COLUMN_NUMBER = 0;
-    private static final int Y_COLUMN_NUMBER = 1;
-    private final List<Double> xValues;
-    private final List<Double> yValues;
-    public MyTableModel(List<Double> xValues, List<Double> yValues) {
+    protected static final int X_COLUMN_NUMBER = 0;
+    protected static final int Y_COLUMN_NUMBER = 1;
+    private static final long serialVersionUID = 2485053151720805228L;
+    private final List<String> xValues;
+    private final List<String> yValues;
+    public MyTableModel(List<String> xValues, List<String> yValues) {
         this.xValues = xValues;
         this.yValues = yValues;
     }
 
-    public List<Double> getXValues() {
+    public List<String> getXValues() {
         return xValues;
     }
 
-    public List<Double> getYValues() {
+    public List<String> getYValues() {
         return yValues;
     }
 
@@ -47,9 +48,9 @@ public class MyTableModel extends AbstractTableModel {
         try {
             switch (columnIndex) {
                 case X_COLUMN_NUMBER:
-                    xValues.set(rowIndex, Double.parseDouble(String.valueOf(aValue)));
+                    xValues.set(rowIndex, String.valueOf(aValue));
                 case Y_COLUMN_NUMBER:
-                    yValues.set(rowIndex, Double.parseDouble(String.valueOf(aValue)));
+                    yValues.set(rowIndex, String.valueOf(aValue));
             }
         }
         catch (NumberFormatException e){

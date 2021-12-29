@@ -13,7 +13,7 @@ public class SynchronizedTabulatedFunctionTest {
     public void testIterator() {
         double delta = 0.001;
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(
-                new ArrayTabulatedFunction(new SqrFunction(), 1, 10, 10));
+                new LinkedListTabulatedFunction(new SqrFunction(), 1, 10, 10));
         Iterator<Point> iterator = synchronizedTabulatedFunction.iterator();
         int i = 0;
         while (iterator.hasNext()) {
@@ -44,7 +44,7 @@ public class SynchronizedTabulatedFunctionTest {
     public void testGetX() {
         double delta = 0.001;
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(
-                new ArrayTabulatedFunction(new SqrFunction(), 1, 10, 10));
+                new LinkedListTabulatedFunction(new SqrFunction(), 1, 10, 10));
         Assert.assertEquals(synchronizedTabulatedFunction.getX(1), 2.0, delta);
         Assert.assertEquals(synchronizedTabulatedFunction.getX(4), 5.0, delta);
         Assert.assertEquals(synchronizedTabulatedFunction.getX(7), 8.0, delta);
@@ -66,7 +66,7 @@ public class SynchronizedTabulatedFunctionTest {
         double[] xValues = {2, 4, 6, 8, 10};
         double[] yValues = {4, 16, 36, 64, 100};
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(
-                new ArrayTabulatedFunction(xValues, yValues));
+                new LinkedListTabulatedFunction(xValues, yValues));
         synchronizedTabulatedFunction.setY(0, 0);
         synchronizedTabulatedFunction.setY(2, 0);
         synchronizedTabulatedFunction.setY(3, 0);
@@ -89,7 +89,7 @@ public class SynchronizedTabulatedFunctionTest {
     @Test
     public void testIndexOfY() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(
-                new ArrayTabulatedFunction(new IdentityFunction(), 1, 10, 10));
+                new LinkedListTabulatedFunction(new IdentityFunction(), 1, 10, 10));
         Assert.assertEquals(synchronizedTabulatedFunction.indexOfY(2), 1);
         Assert.assertEquals(synchronizedTabulatedFunction.indexOfY(5), 4);
         Assert.assertEquals(synchronizedTabulatedFunction.indexOfY(7), 6);
@@ -115,7 +115,7 @@ public class SynchronizedTabulatedFunctionTest {
     public void testApply() {
         double delta = 0.001;
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(
-                new ArrayTabulatedFunction(new SqrFunction(), 1, 10, 10));
+                new LinkedListTabulatedFunction(new SqrFunction(), 1, 10, 10));
         Assert.assertEquals(synchronizedTabulatedFunction.apply(5), 2.236, delta);
         Assert.assertEquals(synchronizedTabulatedFunction.apply(7), 2.645, delta);
     }
@@ -128,7 +128,7 @@ public class SynchronizedTabulatedFunctionTest {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(
                 new LinkedListTabulatedFunction(xValues, yValues)
         );
-        Assert.assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 5.0, delta);
-        Assert.assertEquals((double) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::rightBound), 5.0, delta);
+        Assert.assertEquals(synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 5.0, delta);
+        Assert.assertEquals(synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::rightBound), 5.0, delta);
     }
 }

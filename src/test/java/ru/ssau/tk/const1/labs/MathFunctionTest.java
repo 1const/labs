@@ -13,7 +13,7 @@ public class MathFunctionTest {
         double[] arrOfY1 = {-3, -6, -9};
         double[] arrOfX2 = {1, 10, 20};
         double[] arrOfY2 = {0.5, 5, 10};
-        MathFunction minusThreeFunc = new ArrayTabulatedFunction(arrOfX1, arrOfY1);
+        MathFunction minusThreeFunc = new LinkedListTabulatedFunction(arrOfX1, arrOfY1);
         MathFunction halfFunc = new LinkedListTabulatedFunction(arrOfX2, arrOfY2);
         MathFunction sqrFunc = new SqrFunction();
         double delta = 0.001;

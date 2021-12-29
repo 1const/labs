@@ -10,9 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayWindow extends JFrame {
-    private List<Double> xValues;
-    private List<Double> yValues;
+public class ArrayWindow extends JDialog {
+    private List<String> xValues;
+    private List<String> yValues;
     private MyTableModel tableModel;
     private JTable table;
     private final JButton addRowButton = new JButton("Добавить строчку");
@@ -22,12 +22,14 @@ public class ArrayWindow extends JFrame {
     private JScrollPane tableScrollPane;
     private final GroupLayout layout = new GroupLayout(getContentPane());
     private final JTextField field;
-    private final TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
-
-    public ArrayWindow() {
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(800, 800);
-        setLocationRelativeTo(null);
+    private final TabulatedFunctionFactory factory;
+    TabulatedFunction function;
+    private int count;
+    public ArrayWindow(TabulatedFunctionFactory factory) {
+        this.factory = factory;
+        setModal(true);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setSize(500, 500);
         JLabel label = new JLabel("Размер табулированной функции:");
         field = new JTextField(5);
         countButton = new JButton("Ввести");
@@ -36,11 +38,12 @@ public class ArrayWindow extends JFrame {
         getContentPane().add(field);
         getContentPane().add(countButton);
         addButtonListeners();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private void addButtonListeners() {
         countButton.addActionListener(e -> {
-            int count = 0;
             try {
                 count = Integer.parseInt(field.getText());
                 if (count <= 0) {
@@ -59,20 +62,22 @@ public class ArrayWindow extends JFrame {
             xValues = new ArrayList<>(count);
             yValues = new ArrayList<>(count);
             for (int i = 0; i < count; i++) {
-                xValues.add(0.0);
-                yValues.add(0.0);
+                xValues.add("");
+                yValues.add("");
             }
             tableModel = new MyTableModel(xValues, yValues);
             table = new JTable(tableModel);
             tableScrollPane = new JScrollPane(table);
             create = new JButton("создать");
-            int finalCount = count;
             create.addActionListener(e1 -> {
                 try {
-                    double[] xArray = xValues.stream().mapToDouble(d -> d).toArray();
-                    double[] yArray = yValues.stream().mapToDouble(d -> d).toArray();
-                    TabulatedFunction function = arrayFactory.createFromArray(xArray, yArray);
-                    System.out.println(function);
+                    double[] xArray = new double[count];
+                    double[] yArray =new double[count];
+                    for (int i = 0; i < count; i++) {
+                        xArray[i] = Double.parseDouble(xValues.get(i));
+                        yArray[i] = Double.parseDouble(yValues.get(i));
+                    }
+                    function = factory.createFromArray(xArray, yArray);
                     dispose();
                 } catch (NumberFormatException exp1) {
                     ExceptionHandling.Processing("Введите число в виде десятичной дроби через точку");
@@ -86,8 +91,8 @@ public class ArrayWindow extends JFrame {
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         });
         addRowButton.addActionListener(e -> {
-            xValues.add(0.0);
-            yValues.add(0.0);
+            xValues.add("");
+            yValues.add("");
             tableModel.fireTableDataChanged();
         });
         removeRowButton.addActionListener(e -> {
@@ -118,8 +123,16 @@ public class ArrayWindow extends JFrame {
         );
     }
 
+    public TabulatedFunctionFactory getFactory() {
+        return factory;
+    }
+
+    public TabulatedFunction getFunction() {
+        return function;
+    }
+
     public static void main(String[] args) {
-        ArrayWindow window = new ArrayWindow();
-        window.setVisible(true);
+        TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+        ArrayWindow window = new ArrayWindow(factory);
     }
 }

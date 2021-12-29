@@ -1,6 +1,5 @@
 package ru.ssau.tk.const1.labs.functions.factory;
 
-import ru.ssau.tk.const1.labs.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.const1.labs.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.const1.labs.functions.MathFunction;
 import ru.ssau.tk.const1.labs.functions.TabulatedFunction;

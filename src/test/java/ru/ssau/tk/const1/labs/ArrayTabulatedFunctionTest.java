@@ -16,7 +16,7 @@ public class ArrayTabulatedFunctionTest {
     @Test
     public void testDefaultFunctionsConstructor1() {
         MathFunction function = new SqrFunction();
-        ArrayTabulatedFunction arr = new ArrayTabulatedFunction(function, 1., 9., 5);
+        LinkedListTabulatedFunction arr = new LinkedListTabulatedFunction(function, 1., 9., 5);
         System.out.println(arr);
         System.out.println(arr.getCount() + " - length");
         arr.setY(1, 4);
@@ -32,7 +32,7 @@ public class ArrayTabulatedFunctionTest {
     public void testDefaultFunctionsConstructor2() {
         double[] xValues = {1, 2, 3, 4, 5};
         double[] yValues = {1, 2, 3, 4, 5};
-        ArrayTabulatedFunction arr2 = new ArrayTabulatedFunction(xValues, yValues);
+        LinkedListTabulatedFunction arr2 = new LinkedListTabulatedFunction(xValues, yValues);
         System.out.println(arr2);
         System.out.println(arr2.getCount() + " - length");
         arr2.setY(1, 4);
@@ -45,7 +45,7 @@ public class ArrayTabulatedFunctionTest {
     @Test
     public void testApply() {
         MathFunction function = new SqrFunction();
-        ArrayTabulatedFunction arr = new ArrayTabulatedFunction(function, 1., 9., 5);
+        LinkedListTabulatedFunction arr = new LinkedListTabulatedFunction(function, 1., 9., 5);
         System.out.println(arr);
         double delta = 0.1;                                             // скорее всего большая погрешность из-за маленького количества count
         assertEquals(1.0, arr.apply(1), delta);             //левая граница
@@ -58,7 +58,7 @@ public class ArrayTabulatedFunctionTest {
     public void testInsert() {
         double[] xValues = {1, 2, 3, 4, 5};
         double[] yValues = {1, 2, 3, 4, 5};
-        ArrayTabulatedFunction arr = new ArrayTabulatedFunction(xValues, yValues);
+        LinkedListTabulatedFunction arr = new LinkedListTabulatedFunction(xValues, yValues);
         System.out.println("До изменений");
         System.out.println(arr);
 
@@ -99,19 +99,19 @@ public class ArrayTabulatedFunctionTest {
     public void testExceptions() {
         double[] xValues = {1, 2};
         double[] yValues = {1, 2, 3};
-        Assert.assertThrows(DifferentLengthOfArraysException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
+        Assert.assertThrows(DifferentLengthOfArraysException.class, () -> new LinkedListTabulatedFunction(xValues, yValues));
         double[] xValues2 = {1};
         double[] yValues2 = {1};
-        Assert.assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues2, yValues2));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(xValues2, yValues2));
         double[] xValues3 = {3, 2, 1};
         double[] yValues3 = {1, 2, 3};
-        Assert.assertThrows(ArrayIsNotSortedException.class, () -> new ArrayTabulatedFunction(xValues3, yValues3));
+        Assert.assertThrows(ArrayIsNotSortedException.class, () -> new LinkedListTabulatedFunction(xValues3, yValues3));
         MathFunction function = new SqrFunction();
-        Assert.assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(function, 9., 2., 5));
-        Assert.assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(function, 1., 9., 1));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(function, 9., 2., 5));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(function, 1., 9., 1));
         double[] xValues4 = {1, 2, 3, 4, 5};
         double[] yValues4 = {1, 2, 3, 4, 5};
-        ArrayTabulatedFunction arr2 = new ArrayTabulatedFunction(xValues4, yValues4);
+        LinkedListTabulatedFunction arr2 = new LinkedListTabulatedFunction(xValues4, yValues4);
         Assert.assertThrows(IllegalArgumentException.class, () -> arr2.getX(-1));
         Assert.assertThrows(IllegalArgumentException.class, () -> arr2.getY(-1));
         Assert.assertThrows(IllegalArgumentException.class, () -> arr2.setY(-1, 2));
@@ -123,7 +123,7 @@ public class ArrayTabulatedFunctionTest {
         double delta = 0.01;
         double[] xValues = {1, 2, 3, 4, 5};
         double[] yValues = {1, 2, 3, 4, 5};
-        ArrayTabulatedFunction arr2 = new ArrayTabulatedFunction(xValues, yValues);
+        LinkedListTabulatedFunction arr2 = new LinkedListTabulatedFunction(xValues, yValues);
         int i = 0;
         for (Point p : arr2) {
             assertEquals(xValues[i], p.x, delta);

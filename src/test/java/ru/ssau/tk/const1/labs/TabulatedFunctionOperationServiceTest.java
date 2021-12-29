@@ -19,7 +19,7 @@ public class TabulatedFunctionOperationServiceTest {
         service.setFactory(new ArrayTabulatedFunctionFactory());
         double[] xValues = {1, 2, 3, 4, 5};
         double[] yValues = {1, 2, 3, 4, 5};
-        ArrayTabulatedFunction arr = new ArrayTabulatedFunction(xValues, yValues);
+        LinkedListTabulatedFunction arr = new LinkedListTabulatedFunction(xValues, yValues);
         MathFunction function = new SqrFunction();
         LinkedListTabulatedFunction list2 = new LinkedListTabulatedFunction(function, 1., 9., 5);
         Assert.assertThrows(InconsistentFunctionsException.class, () -> service.addition(arr, list2));
